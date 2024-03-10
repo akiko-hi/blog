@@ -1,11 +1,18 @@
 # docker-composeのバージョン
 version: "3" 
 
+# コンテナ定義
 services:
-  # コンテナの作成
+  # webサーバー
   web:
-    # このコンテナで使用するDockerイメージの指定
-    image: "nginx:latest"
+    # コンテナ名
+    container_name: "web"
+    # コンテナの作成に使用するDockerfileのパス
+    build:
+      dockerfile: "./container/web/Dockerfile"
     # ホスト側のポート:コンテナ側のポートを指定
     ports:
       - "8080:80"
+    # src配下のファイルをコンテナ内の~/va/www/html配下に配置
+    volumes:
+      - "./src:/var/www/html"
